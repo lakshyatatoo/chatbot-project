@@ -1,0 +1,60 @@
+/* App.jsx */
+.app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 840px);
+  height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.62);
+  border-left: 1px solid rgba(255, 255, 255, 0.7);
+  border-right: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.12);
+  backdrop-filter: blur(22px);
+}
+
+.app::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), transparent 18%),
+    radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.12), transparent 34%);
+}
+
+.app > * {
+  position: relative;
+  z-index: 1;
+}
+
+.intro {
+  width: fit-content;
+  max-width: calc(100% - 32px);
+  margin: 22px auto 4px;
+  padding: 10px 16px;
+  text-align: center;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  border-radius: 999px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+@media (max-width: 640px) {
+  .app {
+    width: 100%;
+    border: none;
+    box-shadow: none;
+  }
+
+  .intro {
+    margin-top: 14px;
+    padding: 9px 13px;
+    font-size: 13px;
+    border-radius: 18px;
+  }
+}
