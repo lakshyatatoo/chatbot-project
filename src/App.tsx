@@ -3,11 +3,12 @@ import { useEffect } from "react";
 import { Chatbot } from "supersimpledev";
 import ChatMessages from "./components/ChatMessages";
 import ChatInput from "./components/ChatInput";
+import icon from "./assets/favicon.png";
 import "./App.css";
 
 function App() {
   const [chatMessages, setChatMessages] = useState(
-    JSON.parse(localStorage.getItem("messages")) || [],
+    JSON.parse(localStorage.getItem("messages")!) || [],
   ); // this is a hook, it is used to manage state in functional components, it returns an array with two elements, the first element is the current state and the second element is a function to update the state
   useEffect(() => {
     Chatbot.addResponses({
@@ -39,33 +40,37 @@ function App() {
       j13: "Indian moms don't need Google. They already know everything.",
       j14: "Me: I'll just watch one reel. One hour later: Welcome back.",
       j15: "The fastest thing in India isn't light. It's the rumor spread by relatives.",
-    },[]);
-  });
+    });
+  }, []);
   useEffect(() => {
     localStorage.setItem("messages", JSON.stringify(chatMessages));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatMessages]);
   function clearChat() {
     setChatMessages([]);
     localStorage.removeItem("messages");
   }
+  const title = `${chatMessages.length} Messages`;
   return (
-    <div className="app">
-      <div className="intro">
-        {chatMessages.length === 0 && (
-          <p>
-            Welcome to the chatbot project! Send a message using the textbox
-            below.
-          </p>
-        )}
+    <>
+      <title>{title}</title>
+      <link rel="icon" type="image/gif" href={icon} />
+      <div className="app">
+        <div className="intro">
+          {chatMessages.length === 0 && (
+            <p>
+              Welcome to the chatbot project! Send a message using the textbox
+              below.
+            </p>
+          )}
+        </div>
+        <ChatMessages chatMessages={chatMessages} />
+        <ChatInput
+          chatMessages={chatMessages}
+          setChatMessages={setChatMessages}
+          clearChat={clearChat}
+        />
       </div>
-      <ChatMessages chatMessages={chatMessages} />
-      <ChatInput
-        chatMessages={chatMessages}
-        setChatMessages={setChatMessages}
-        clearChat={clearChat}
-      />
-    </div>
+    </>
   );
 }
 
